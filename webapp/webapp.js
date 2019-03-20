@@ -84,12 +84,13 @@ angular.module('myApp', [
 		console.log("device : ")
 	}
 	$scope.setstatusDevice1 = function(){
-		$routeProvider.document.getElementById("status1").className = "status-OFF";
+		$scope.leds_status[0] = !$scope.leds_status[0]
+		$scope.changeLED()
+		console.log("device : ")
 	}
 	//Khi nhận được lệnh LED_STATUS
 	mySocket.on('LED_STATUS', function(json) {
 		//Nhận được thì in ra thôi hihi.
-		document.getElementById("status1").className = "status-OFF";
 		console.log("recv LED", json)
 		$scope.leds_status = json.data
 		console.log("leds_status: ", $scope.leds_status)
@@ -97,6 +98,7 @@ angular.module('myApp', [
 	//khi nhận được lệnh Button
 	mySocket.on('BUTTON', function(json) {
 		//Nhận được thì in ra thôi hihi.
+		document.getElementById("status1").className = "status-OFF";
 		console.log("recv BUTTON", json)
 		$scope.buttons = json.data
 	})
